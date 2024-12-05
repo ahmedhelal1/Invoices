@@ -18,5 +18,5 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/{page}', 'AdminController@index');
-Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
