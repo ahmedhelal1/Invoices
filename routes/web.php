@@ -16,7 +16,20 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+});
+Route::get('/{page}', 'AdminController@index');
+Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [AdminController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [AdminController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [AdminController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/{page}', 'AdminController@index');
+require __DIR__ . '/auth.php';
