@@ -112,7 +112,7 @@
 						</g>
 					</svg><span class="side-menu__label">الاعدادات</span><i class="angle fe fe-chevron-down"></i></a>
 				<ul class="slide-menu">
-					<li><a class="slide-item" href="{{ url('/' . $page='profile') }}">اضافه قسم </a></li>
+					<li><a class="slide-item" href="{{route('sections.index')}}">الاقسام </a></li>
 					<li><a class="slide-item" href="{{ url('/' . $page='editprofile') }}">اضافه منتج</a></li>
 
 				</ul>

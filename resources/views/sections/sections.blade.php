@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section("title","invoices")
+@section('title','sections')
 @section('css')
 <!-- Internal Data table css -->
 <link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
@@ -14,64 +14,67 @@
 <div class="breadcrumb-header justify-content-between">
 	<div class="my-auto">
 		<div class="d-flex">
-			<h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">قائمة الفواتير</span>
+			<h4 class="content-title mb-0 my-auto">الاعدادات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">التقارير</span>
 		</div>
 	</div>
-</div>
+
 </div>
 <!-- breadcrumb -->
 @endsection
 @section('content')
 <!-- row -->
 <div class="row">
-
-
 	@section('content')
+
+	@if (session()->has('Add'))
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<strong>{{ session()->get('Add') }}</strong>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	@endif
+
+	@if (session()->has('error'))
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong>{{ session()->get('error') }}</strong>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	@endif
 	<!-- row opened -->
 	<div class="row row-sm">
 		<div class="col-xl-12">
 			<div class="card">
 				<div class="card-header pb-0">
-					<div class="d-flex justify-content-between">
-						<h4 class="card-title mg-b-0">SIMPLE TABLE</h4>
-						<i class="mdi mdi-dots-horizontal text-gray"></i>
-					</div>
-					<p class="tx-12 tx-gray-500 mb-2">Example of Valex Simple Table. <a href="">Learn more</a></p>
+
 				</div>
+				<div class="col-sm-6 col-md-4 col-xl-3">
+					<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافه قسم</a>
+
+				</div>
+
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table text-md-nowrap" id="example1">
 							<thead>
 								<tr>
 									<th class="wd-10p border-bottom-0">#</th>
-									<th class="wd-15p border-bottom-0">رقم الفاتورة</th>
-									<th class="wd-15p border-bottom-0">تاريخ الفاتوره </th>
-									<th class="wd-20p border-bottom-0">تاريخ الاستحقاق</th>
-									<th class="wd-15p border-bottom-0">المنتج </th>
-									<th class="wd-10p border-bottom-0">القسم</th>
-									<th class="wd-25p border-bottom-0">الخصم</th>
-									<th class="wd-15p border-bottom-0">نسبه الضريبه </th>
-									<th class="wd-15p border-bottom-0">قيمه الضريبه </th>
-									<th class="wd-20p border-bottom-0">الاجمالي </th>
-									<th class="wd-15p border-bottom-0">الحاله </th>
-									<th class="wd-10p border-bottom-0">الملاحظات</th>
+									<th class="wd-15p border-bottom-0">اسم القسم </th>
+									<th class="wd-15p border-bottom-0"> الوصف </th>
+									<th class="wd-20p border-bottom-0"> العمليات</th>
+
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($invoices as $data)
+								@foreach($sections as $data)
 								<tr>
 									<td>{{$data->id}}</td>
-									<td>{{$data->invoices_number}}</td>
-									<td>{{$data->invoices_date}}</td>
-									<td>{{$data->due_date}}</td>
-									<td>{{$data->product}}</td>
-									<td>{{$data->section}}</td>
-									<td>{{$data->discount}}</td>
-									<td>{{$data->rate_vat}}</td>
-									<td>{{$data->value_vat}}</td>
-									<td>{{$data->total}}</td>
-									<td>{{$data->status}}</td>
-									<td>{{$data->note}}</td>
+									<td>{{$data->section_name}}</td>
+									<td>{{$data->description}}</td>
+									<td>{{$data->created_by}}</td>
+
 
 								</tr>
 
@@ -84,6 +87,37 @@
 		</div>
 		<!--/div-->
 
+
+		<!-- Basic modal -->
+		<div class="modal" id="modaldemo8">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content modal-content-demo">
+					<div class="modal-header">
+						<h6 class="modal-title">اضافة قسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
+							type="button"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<form action="{{ route('sections.store') }}" method="post">
+						{{ csrf_field() }}
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="exampleInputEmail1">اسم القسم</label>
+								<input type="text" class="form-control" id="section_name" name="section_name">
+							</div>
+
+							<div class="form-group">
+								<label for="exampleFormControlTextarea1">ملاحظات</label>
+								<textarea class="form-control" id="description" name="description" rows="3"></textarea>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success">تاكيد</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- End Basic modal -->
 
 		<!-- /row -->
 	</div>
@@ -111,16 +145,9 @@
 <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+<script src="{{URL::asset('assets/js/modal.js')}}"></script>
+
 @endsection
-
-
-
-
-
-
-
-
-
 
 </div>
 <!-- row closed -->
@@ -130,4 +157,5 @@
 <!-- main-content closed -->
 @endsection
 @section('js')
+
 @endsection

@@ -1,8 +1,7 @@
 @extends('layouts.master2')
 
-@section('title')
-تسجيل الدخول - solutions للادارة القانونية
-@stop
+@section('title' ,'login')
+
 
 
 @section('css')

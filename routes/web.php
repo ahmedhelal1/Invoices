@@ -4,6 +4,7 @@
     use App\Http\Controllers\AdminController;
     use App\Http\Controllers\Controller;
     use App\Http\Controllers\InvoicesController;
+    use App\Http\Controllers\SectionsController;
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -20,6 +21,7 @@
     });
 
     Route::resource('invoices', InvoicesController::class);
+    Route::resource('sections', SectionsController::class);
 
 
 
