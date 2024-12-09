@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SectionRequest;
 use App\Models\sections;
 use Illuminate\Http\Request;
 
@@ -34,26 +35,19 @@ class SectionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SectionRequest $request)
     {
-        $input = $request->all();
+        $validated = $request->validated();
 
-        $b_exists = Sections::where('section_name', '=', $input['section_name'])->exists();
-        if ($b_exists) {
-            session()->flash('error', 'Section name already exists');
-            return redirect()->back();
-        } else {
-            Sections::create([
-                'section_name' => $request->section_name,
-                'description' => $request->description,
-                'created_by' => auth()->user()->name,
-                'created_at' => now(),
-                'updated_at' => now(),
+        Sections::create([
+            'section_name' => $request->section_name,
+            'description' => $request->description,
+            'created_by' => auth()->user()->name,
+            'created_at' => now(),
+            'updated_at' => now(),
 
-            ]);
-            session()->flash('Add', 'add is successful');
-            return redirect()->back();
-        }
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -85,9 +79,30 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, sections $sections)
+    public function update(Request $request)
     {
-        //
+        $id = $request->id;
+        $section = Sections::findOrFail($request->id);
+        $validated = $request->validate(
+            [
+                'section_name' => ['required', 'max:255', 'unique:sections,section_name,' . $id . ',id'],
+                'description' => ['required'],
+            ],
+            [
+                'section_name.required' => '  برجاء ادخال اسم القسم ',
+                'section_name.unique' => 'هذا القسم موجود بالفعل',
+                'section_name.max' => 'لقد تجاوزت الحد الاقصي ',
+
+                'description.required' => ' برجاء ادخال  الوصف',
+            ]
+        );
+        $section->update([
+            'section_name' => $request->section_name,
+            'description' => $request->description,
+            'updated_at' => now(),
+        ]);
+        session()->flash('edit', 'تم التعديل بنجاح');
+        return redirect()->back();
     }
 
     /**
@@ -96,8 +111,11 @@ class SectionsController extends Controller
      * @param  \App\Models\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function destroy(sections $sections)
+    public function destroy(Request $request)
     {
-        //
+        $sections = Sections::findOrFail($request->id);
+        $sections->delete($request->id);
+        session()->flash("delete", "لقد تم حذف القسم بنجاح");
+        return redirect()->back();
     }
 }
