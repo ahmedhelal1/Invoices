@@ -286,7 +286,6 @@
         modal.find('.modal-body #description').val(description);
     })
 </script>
-
 <script>
     $('#modaldemo9').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
