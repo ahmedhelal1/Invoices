@@ -98,6 +98,7 @@ class ProductsController extends Controller
             'updated_at' => now(),
         ]);
         session()->flash('edit', 'تم التعديل بنجاح');
+        
         return redirect()->back();
     }
 
