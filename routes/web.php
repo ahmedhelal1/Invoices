@@ -6,6 +6,7 @@
     use App\Http\Controllers\InvoicesController;
     use App\Http\Controllers\SectionsController;
     use App\Http\Controllers\ProductsController;
+    use App\Http\Controllers\InvoicesDetailsController;
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -25,6 +26,7 @@
     Route::resource('sections', SectionsController::class);
     Route::resource('products', ProductsController::class);
     Route::get('/section/{id}', [InvoicesController::class, 'getproducts']);
+    Route::get('/invoicesDetails/{id}', [InvoicesDetailsController::class, 'edit'])->name('invoicesDetails');
 
 
 

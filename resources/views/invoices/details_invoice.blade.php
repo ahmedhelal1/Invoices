@@ -27,16 +27,29 @@
 
 
 	@section('content')
-	<!-- row opened -->
+	
+	<div class=" tab-menu-heading">
+	<div class="tabs-menu1">
+		<!-- Tabs -->
+		<ul class="nav panel-tabs main-nav-line">
+			<li><a href="#tab1" class="nav-link active" data-toggle="tab">تفاصيل الفاتوره</a></li>
+			<li><a href="#tab2" class="nav-link" data-toggle="tab">تفاصيل الفاتوره</a></li>
+			<li><a href="#tab3" class="nav-link" data-toggle="tab">المرفقات</a></li>
+		</ul>
+	</div>
+</div>
+<div class="panel-body tabs-menu-body main-content-body-right border">
+	<div class="tab-content">
+		<div class="tab-pane active" id="tab1">
+	
+			<!-- row opened -->
 	<div class="row row-sm">
 		<div class="col-xl-12">
 			<div class="card">
 				<div class="card-header pb-0">
 				
      <div class="col-sm-6 col-md-4 col-xl-3">
-                    <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"  href="{{route('invoices.create')}}">اضافه قسم</a>
-
-                </div>				</div>
+                 			</div>
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table text-md-nowrap" id="example1">
@@ -61,7 +74,7 @@
 								$i=0
 								@endphp
 								
-								@foreach($invoices as $data)
+								@foreach($invoice as $data)
 
 									@php 
 								$i++;
@@ -73,11 +86,7 @@
 									<td>{{$data->invoices_date}}</td>
 									<td>{{$data->due_date}}</td>
 									<td>{{$data->product}}</td>
-									<td>
-									 <a href="{{route('invoicesDetails', $data->id)}}">
-										{{$data->section->section_name}}
-									 </a>
-									</td>
+									<td>{{$data->section->section_name}}</td>
 									<td>{{$data->discount}}</td>
 									<td>{{$data->rate_vat}}</td>
 									<td>{{$data->value_vat}}</td>
@@ -110,6 +119,133 @@
 	<!-- Container closed -->
 </div>
 <!-- main-content closed -->
+
+
+		</div>
+		<div class="tab-pane" id="tab2">
+			<!-- row opened -->
+	<div class="row row-sm">
+		<div class="col-xl-12">
+			<div class="card">
+				<div class="card-header pb-0">
+				
+     <div class="col-sm-6 col-md-4 col-xl-3">
+                 			</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table text-md-nowrap" id="example1">
+							<thead>
+								<tr>
+									<th class="wd-10p border-bottom-0">#</th>
+									<th class="wd-15p border-bottom-0">رقم الفاتورة</th>
+									<th class="wd-15p border-bottom-0">المنتج </th>
+									<th class="wd-10p border-bottom-0">القسم</th>
+									<th class="wd-25p border-bottom-0">حاله الفاتوره</th>
+									<th class="wd-20p border-bottom-0">الملاحظات </th>
+									<th class="wd-15p border-bottom-0">اسم الموظف </th>
+								</tr>
+							</thead>
+							<tbody>
+								@php 
+								$i=0
+								@endphp
+								
+								@foreach($details as $data)
+
+									@php 
+								$i++;
+								@endphp
+								
+								<tr>
+									<td>{{$i}}</td>
+									<td>{{$data->invoice_number}}</td>
+									<td>{{$data->product}}</td>
+									<td>{{$data->section}}</td>
+									<td>{{$data->value_status}}</td>
+									<td>{{$data->note}}</td>
+									<td>{{$data->user}}</td>
+
+								</tr>
+
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/div-->
+
+
+		<!-- /row -->
+	</div>
+	<!-- Container closed -->
+</div>
+<!-- main-content closed -->
+
+
+		</div>
+		<div class="tab-pane" id="tab3">
+			<!-- row opened -->
+	<div class="row row-sm">
+		<div class="col-xl-12">
+			<div class="card">
+				<div class="card-header pb-0">
+				
+     <div class="col-sm-6 col-md-4 col-xl-3">
+                 			</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table text-md-nowrap" id="example1">
+							<thead>
+								<tr>
+									<th class="wd-10p border-bottom-0">#</th>
+									<th class="wd-15p border-bottom-0">اسم الملف </th>
+									<th class="wd-15p border-bottom-0">رقم الفاتوره</th>
+									<th class="wd-20p border-bottom-0"> اسم الموظف</th>
+						
+								</tr>
+							</thead>
+							<tbody>
+								@php 
+								$i=0
+								@endphp
+								
+								@foreach($invoice_attachment as $data)
+
+									@php 
+								$i++;
+								@endphp
+								
+								<tr>
+									<td>{{$i}}</td>
+									<td>{{$data->file_name}}</td>
+									<td>{{$data->invoices_number}}</td>
+									<td>{{$data->created_by}}</td>
+									
+						
+								</tr>
+
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/div-->
+
+
+		<!-- /row -->
+	</div>
+	<!-- Container closed -->
+</div>
+<!-- main-content closed -->
+
+</div>
+	</div>
+</div>
+
 @endsection
 @section('js')
 <!-- Internal Data tables -->
@@ -132,22 +268,9 @@
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 @endsection
-
-
-
-
-
-
-
-
-
-
 </div>
-<!-- row closed -->
-</div>
-<!-- Container closed -->
-</div>
-<!-- main-content closed -->
-@endsection
-@section('js')
-@endsection
+
+
+
+
+

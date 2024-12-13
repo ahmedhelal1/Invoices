@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\invoices_details;
+use Carbon\Cli\Invoker;
 use Illuminate\Http\Request;
+use App\Models\invoices_attachments;
+use App\Models\invoices;
+use App\Models\Sections;
 
 class InvoicesDetailsController extends Controller
 {
@@ -27,12 +31,7 @@ class InvoicesDetailsController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
@@ -55,9 +54,15 @@ class InvoicesDetailsController extends Controller
      * @param  \App\Models\invoices_details  $invoices_details
      * @return \Illuminate\Http\Response
      */
-    public function edit(invoices_details $invoices_details)
+    public function edit($id)
     {
-        //
+
+        $invoice = Invoices::where('id', $id)->get();
+        $details = Invoices_details::where('id_invoices', $id)->get();
+        $invoice_attachment = invoices_attachments::where('id_invoices', $id)->get();
+        $sections = Sections::all();
+
+        return view('invoices.details_invoice', compact('invoice', 'details', 'invoice_attachment', 'sections'));
     }
 
     /**
