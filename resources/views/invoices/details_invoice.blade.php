@@ -192,6 +192,41 @@
                 </div>
                 <div class="tab-pane" id="tab3">
                     <!-- row opened -->
+
+                    <div class="card-body">
+                        <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
+                        <h5 class="card-title">اضافة مرفقات</h5>
+                        <form method="post" action="{{ route('invoice_attachments') }}" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+
+                            <div class="custom-file">
+                                <label class="custom-file-label" for="file_name">حدد المرفق</label>
+                                <input type="file" class="custom-file-input" id="file_name" name="file_name" required>
+                                <input type="text" id="invoice_number" name="invoice_number"
+                                    value="{{ $data->invoice_number }}">
+                                <input type="text" id="invoice_id" name="invoice_id" value="{{ $invoice->id }}">
+
+                            </div><br><br>
+                            <button type="submit" class="btn btn-primary btn-sm " name="submit">تاكيد</button>
+                        </form>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="row row-sm">
                         <div class="col-xl-12">
                             <div class="card">
@@ -340,5 +375,6 @@
             modal.find('.modal-body #invoices_number').val(invoices_number);
         })
     </script>
+
 @endsection
 </div>

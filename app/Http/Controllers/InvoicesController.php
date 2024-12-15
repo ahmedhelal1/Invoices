@@ -75,25 +75,12 @@ class InvoicesController extends Controller
             'user' => auth()->user()->name,
 
         ]);
-        // if ($request->hasFile('pic')) {
-        //     $invoice_id = invoices::latest()->first()->id;
-        //     $image = $request->file('pic');
-        //     $imagefile = $image->getClientOriginalExtension();
-        //     $invoice_number = $request->invoice_number;
 
-        //     $attachments = new invoices_attachments();
-        //     $attachments->file_name = $imagefile;
-        //     $attachments->invoices_number = $invoice_number;
-        //     $attachments->id_invoices = $invoice_id;
-        //     $attachments->created_by = auth()->user()->name;
-        //     $attachments->save();
-
-
-        //     $image_name = $request->pic->getClientOriginalName();
-        //     $request->pic->move(public_path('attachment/' . $invoice_number), $image_name);
-        //     session()->flash('add', "لقد تم اضافه فاتوره بنجاح ");
-        //     return redirect()->back();
-        // }
+        // $this->validate(
+        //     $request,
+        //     ['file_name' => 'mimes:pdf,jpg,png,jpeg'],
+        //     ['file_name.mimes' => ' pdf,jpg,png,jpeg صيغه المرفق يجب ان تكون ']
+        // );
         if ($request->hasFile('pic')) {
             $invoice_id = invoices::latest()->first()->id;
             $image = $request->file('pic');

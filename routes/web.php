@@ -3,6 +3,7 @@
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\AdminController;
     use App\Http\Controllers\Controller;
+    use App\Http\Controllers\InvoicesAttachmentsController;
     use App\Http\Controllers\InvoicesController;
     use App\Http\Controllers\SectionsController;
     use App\Http\Controllers\ProductsController;
@@ -31,6 +32,7 @@
     Route::get('/download/{invoices_name}/{file_name}', [InvoicesDetailsController::class, 'download'])->name('download');
     Route::POST('/delete', [InvoicesDetailsController::class, 'destroy'])->name('delete');
 
+    Route::POST('/invoice_attachments', [InvoicesAttachmentsController::class, 'store'])->name('invoice_attachments');
 
 
 
