@@ -18,4 +18,21 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+#     # السماح بالوصول إلى مجلد attachment
+# RewriteCond %{REQUEST_URI} ^/attachment/ [NC]
+# RewriteCond %{REQUEST_FILENAME} -f
+# RewriteRule ^ - [L]
+
+
+# RewriteEngine On
+# RewriteRule ^attachment/(.*)$ /path/to/public/attachment/$1 [L]
+
+# RewriteEngine On
+# RewriteRule ^attachment/(.*)$ D:/projects/Invoices/public/attachment/$1 [L]
+
+
+# RewriteEngine On
+# RewriteRule ^attachment/(.*)$ /attachment/$1 [L]
+
 </IfModule>

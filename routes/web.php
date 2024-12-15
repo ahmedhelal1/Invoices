@@ -27,6 +27,10 @@
     Route::resource('products', ProductsController::class);
     Route::get('/section/{id}', [InvoicesController::class, 'getproducts']);
     Route::get('/invoicesDetails/{id}', [InvoicesDetailsController::class, 'edit'])->name('invoicesDetails');
+    Route::get('/View_file/{invoices_name}/{file_name}', [InvoicesDetailsController::class, 'openfile'])->name('View_file');
+    Route::get('/download/{invoices_name}/{file_name}', [InvoicesDetailsController::class, 'download'])->name('download');
+    Route::POST('/delete', [InvoicesDetailsController::class, 'destroy'])->name('delete');
+
 
 
 

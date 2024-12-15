@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\invoices_attachments;
 use App\Models\invoices;
 use App\Models\Sections;
+use Illuminate\Support\Facades\Storage;
 
 class InvoicesDetailsController extends Controller
 {
@@ -57,12 +58,11 @@ class InvoicesDetailsController extends Controller
     public function edit($id)
     {
 
-        $invoice = Invoices::where('id', $id)->get();
+        $invoice = Invoices::where('id', $id)->first();
         $details = Invoices_details::where('id_invoices', $id)->get();
         $invoice_attachment = invoices_attachments::where('id_invoices', $id)->get();
-        $sections = Sections::all();
 
-        return view('invoices.details_invoice', compact('invoice', 'details', 'invoice_attachment', 'sections'));
+        return view('invoices.details_invoice', compact('invoice', 'details', 'invoice_attachment'));
     }
 
     /**
@@ -83,8 +83,40 @@ class InvoicesDetailsController extends Controller
      * @param  \App\Models\invoices_details  $invoices_details
      * @return \Illuminate\Http\Response
      */
-    public function destroy(invoices_details $invoices_details)
+    public function destroy(Request $request)
     {
-        //
+        // return $request;
+        $invoice = invoices_attachments::findOrFail($request->id_file);
+        Storage::disk('public_uploads')->delete($request->invoices_number . '/' . $request->file_name);
+        $invoice->delete();
+        session()->flash("delete", "لقد تم حذف الملف بنجاح");
+        return redirect()->back();
+    }
+
+
+    // public function openfile($invoice_number, $file_name)
+    // {
+    //     $filePath = public_path("attachment/{$invoice_number}/{$file_name}");
+    //     return response()->file($filePath);
+    //     // return $filePath;
+    // }
+
+    // public function get_file($invoice_number, $file_name)
+    // {
+    //     $st = "Attachments";
+    //     $pathToFile = public_path($st . '/' . $invoice_number . '/' . $file_name);
+    //     return response()->download($pathToFile);
+    // }
+    public function openfile($invoice_number, $file_name)
+    {
+        $st = "attachment";
+        $pathToFile = public_path($st . '/' . $invoice_number . '/' . $file_name);
+        return response()->file($pathToFile);
+    }
+    public function download($invoice_number, $file_name)
+    {
+        $st = "attachment";
+        $pathToFile = public_path($st . '/' . $invoice_number . '/' . $file_name);
+        return response()->download($pathToFile);
     }
 }
