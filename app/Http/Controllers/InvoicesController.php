@@ -113,15 +113,12 @@ class InvoicesController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\invoices  $invoices
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(invoices $invoices)
+
+    public function edit($id)
     {
-        //
+        $invoices = Invoices::where('id', $id)->first();
+        $sections = sections::all();
+        return view('invoices.invoices_edit', compact('invoices', 'sections'));
     }
 
     /**
@@ -131,9 +128,27 @@ class InvoicesController extends Controller
      * @param  \App\Models\invoices  $invoices
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, invoices $invoices)
+    public function update(Request $request, $id)
     {
-        //
+        // return $request;
+        $invoices = Invoices::findOrFail($id);
+        $invoices->update([
+            'invoices_number' => $request->invoice_number,
+            'invoices_date' => $request->invoice_Date,
+            'due_date' => $request->Due_date,
+            'product' => $request->product,
+            'section_id' => $request->Section,
+            'amount_collection' => $request->amount_collection,
+            'amount_commission' => $request->Amount_collection,
+            'rate_vat' => $request->Rate_VAT,
+            'value_vat' => $request->Value_VAT,
+            'note' => $request->note,
+            'discount' => $request->Discount,
+            'total' => $request->Total,
+        ]);
+        session()->flash('edit', "لقد تم تعديل فاتوره بنجاح ");
+
+        return redirect()->route('invoicesDetails', $id);
     }
 
     /**

@@ -94,55 +94,16 @@ class InvoicesDetailsController extends Controller
     }
 
 
-    // public function openfile($invoice_number, $file_name)
-    // {
-    //     $st = "attachment";
-    //     $pathToFile = public_path($st . '/' . $invoice_number . '/' . $file_name);
-    //     return response()->file($pathToFile);
-    // }
-    // public function download($invoice_number, $file_name)
-    // {
-    //     $st = "attachment";
-    //     $pathToFile = public_path($st . '/' . $invoice_number . '/' . $file_name);
-    //     return response()->download($pathToFile);
-    // }
-
-
     public function openfile($invoice_number, $file_name)
     {
         $st = "attachment";
-        $pathToFile = public_path("$st/$invoice_number/$file_name");
-
-        // التحقق من وجود الملف
-        if (!file_exists($pathToFile)) {
-            return response()->json(['error' => 'File not found'], 404);
-        }
-
-        // الحصول على نوع MIME
-        $mimeType = \Illuminate\Support\Facades\File::mimeType($pathToFile);
-
-        // إعداد الاستجابة للعرض أو التنزيل الإجباري
-        return response()->stream(function () use ($pathToFile) {
-            readfile($pathToFile);
-        }, 200, [
-            'Content-Type' => $mimeType,
-            'Content-Disposition' => 'inline; filename="' . basename($file_name) . '"',
-            'Cache-Control' => 'no-cache, must-revalidate', // لتعطيل التخزين المؤقت
-            'Pragma' => 'no-cache',
-        ]);
+        $pathToFile = public_path($st . '/' . $invoice_number . '/' . $file_name);
+        return response()->file($pathToFile);
     }
-
     public function download($invoice_number, $file_name)
     {
         $st = "attachment";
-        $pathToFile = public_path("$st/$invoice_number/$file_name");
-
-        // التحقق من وجود الملف
-        if (!file_exists($pathToFile)) {
-            return response()->json(['error' => 'File not found'], 404);
-        }
-
-        // استخدام Laravel لتحميل الملف
+        $pathToFile = public_path($st . '/' . $invoice_number . '/' . $file_name);
         return response()->download($pathToFile);
     }
 }

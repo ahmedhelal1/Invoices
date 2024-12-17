@@ -20,6 +20,7 @@
         </div>
     </div>
     </div>
+
     <!-- breadcrumb -->
     @if (session()->has('delete'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -29,6 +30,15 @@
             </button>
         </div>
     @endif
+    @if (session()->has('edit'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('edit') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
 @endsection
 @section('content')
     <!-- row -->
@@ -76,6 +86,8 @@
                                                         <th class="wd-20p border-bottom-0">الاجمالي </th>
                                                         <th class="wd-15p border-bottom-0">الحاله </th>
                                                         <th class="wd-10p border-bottom-0">الملاحظات</th>
+                                                        <th class="wd-10p border-bottom-0">العمليات</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -99,6 +111,7 @@
                                                         <td>{{ $invoice->rate_vat }}</td>
                                                         <td>{{ $invoice->value_vat }}</td>
                                                         <td>{{ $invoice->total }}</td>
+
                                                         <td>
                                                             @if ($invoice->value_status == 1)
                                                                 <span class="text-success">{{ $invoice->status }}</span>
@@ -110,6 +123,27 @@
                                                         </td>
                                                         <td>{{ $invoice->note }}</td>
 
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button aria-expanded="false" aria-haspopup="true"
+                                                                    class="btn ripple btn-info" data-toggle="dropdown"
+                                                                    type="button">العمليات<i
+                                                                        class="fas fa-caret-down ml-1"></i></button>
+                                                                <div class="dropdown-menu tx-13">
+                                                                    <h6
+                                                                        class="dropdown-header tx-uppercase tx-11 tx-bold tx-inverse tx-spacing-1">
+                                                                        Dropdown header</h6>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('invoices.edit', $invoice->id) }}">تعديل
+                                                                    </a>
+
+                                                                    <div class="dropdown-divider"></div><a
+                                                                        class="dropdown-item" href="#">Separated
+                                                                        link</a>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
                                                     </tr>
 
                                                 </tbody>
@@ -201,10 +235,11 @@
 
                             <div class="custom-file">
                                 <label class="custom-file-label" for="file_name">حدد المرفق</label>
-                                <input type="file" class="custom-file-input" id="file_name" name="file_name" required>
-                                <input type="text" id="invoice_number" name="invoice_number"
+                                <input type="file" class="custom-file-input" id="file_name" name="file_name"
+                                    required>
+                                <input type="hidden" id="invoice_number" name="invoice_number"
                                     value="{{ $data->invoice_number }}">
-                                <input type="text" id="invoice_id" name="invoice_id" value="{{ $invoice->id }}">
+                                <input type="hidden" id="invoice_id" name="invoice_id" value="{{ $invoice->id }}">
 
                             </div><br><br>
                             <button type="submit" class="btn btn-primary btn-sm " name="submit">تاكيد</button>

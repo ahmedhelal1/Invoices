@@ -31,7 +31,6 @@
     Route::get('/View_file/{invoices_name}/{file_name}', [InvoicesDetailsController::class, 'openfile'])->name('View_file');
     Route::get('/download/{invoices_name}/{file_name}', [InvoicesDetailsController::class, 'download'])->name('download');
     Route::POST('/delete', [InvoicesDetailsController::class, 'destroy'])->name('delete');
-
     Route::POST('/invoice_attachments', [InvoicesAttachmentsController::class, 'store'])->name('invoice_attachments');
 
 

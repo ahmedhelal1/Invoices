@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\invoices_attachments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class InvoicesAttachmentsController extends Controller
 {
@@ -35,7 +36,24 @@ class InvoicesAttachmentsController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $this->validate(
+            $request,
+            ['file_name' => 'mimes:pdf,jpg,png,jpeg'],
+            ['file_name.mimes' => ' pdf,jpg,png,jpeg صيغه المرفق يجب ان تكون ']
+        );
+        $image = $request->file('file_name');
+        $file_name = $image->getClientOriginalName();
+        $attachment = new invoices_attachments();
+        $attachment->invoices_number = $request->invoice_number;
+        $attachment->id_invoices = $request->invoice_id;
+        $attachment->file_name = $file_name;
+        $attachment->created_by = auth()->user()->name;
+        $attachment->save();
+
+        $request->file_name->move(public_path('attachment/' . $attachment->invoices_number), $file_name);
+
+        session()->flash('add', 'لقد تم اضافه المرفق بنجاح');
+        return redirect()->back();
     }
 
     /**
