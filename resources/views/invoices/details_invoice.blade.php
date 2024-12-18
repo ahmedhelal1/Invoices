@@ -86,7 +86,6 @@
                                                         <th class="wd-20p border-bottom-0">الاجمالي </th>
                                                         <th class="wd-15p border-bottom-0">الحاله </th>
                                                         <th class="wd-10p border-bottom-0">الملاحظات</th>
-                                                        <th class="wd-10p border-bottom-0">العمليات</th>
 
                                                     </tr>
                                                 </thead>
@@ -123,27 +122,7 @@
                                                         </td>
                                                         <td>{{ $invoice->note }}</td>
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button aria-expanded="false" aria-haspopup="true"
-                                                                    class="btn ripple btn-info" data-toggle="dropdown"
-                                                                    type="button">العمليات<i
-                                                                        class="fas fa-caret-down ml-1"></i></button>
-                                                                <div class="dropdown-menu tx-13">
-                                                                    <h6
-                                                                        class="dropdown-header tx-uppercase tx-11 tx-bold tx-inverse tx-spacing-1">
-                                                                        Dropdown header</h6>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('invoices.edit', $invoice->id) }}">تعديل
-                                                                    </a>
 
-                                                                    <div class="dropdown-divider"></div><a
-                                                                        class="dropdown-item" href="#">Separated
-                                                                        link</a>
-                                                                </div>
-                                                            </div>
-
-                                                        </td>
                                                     </tr>
 
                                                 </tbody>
@@ -238,7 +217,7 @@
                                 <input type="file" class="custom-file-input" id="file_name" name="file_name"
                                     required>
                                 <input type="hidden" id="invoice_number" name="invoice_number"
-                                    value="{{ $data->invoice_number }}">
+                                    value="{{ $invoice->invoice_number }}">
                                 <input type="hidden" id="invoice_id" name="invoice_id" value="{{ $invoice->id }}">
 
                             </div><br><br>
