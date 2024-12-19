@@ -154,7 +154,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="exampleTextarea">ملاحظات</label>
-                                <textarea class="form-control" value="{{ $invoices->note }}" id="exampleTextarea" name="note" rows="3"></textarea>
+                                <textarea class="form-control" value="{{ $invoices->note }}" id="exampleTextarea" name="note" rows="3">{{ $invoices->note }}</textarea>
                             </div>
                         </div><br>
 

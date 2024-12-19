@@ -180,7 +180,16 @@
                                                             <td>{{ $data->invoice_number }}</td>
                                                             <td>{{ $data->product }}</td>
                                                             <td>{{ $data->sections->section_name }}</td>
-                                                            <td>{{ $data->value_status }}</td>
+                                                            {{-- <td>{{ $data->status }}</td> --}}
+                                                            <td>
+                                                                @if ($data->value_status == 1)
+                                                                    <span class="text-success">{{ $data->status }}</span>
+                                                                @elseif ($data->value_status == 2)
+                                                                    <span class="text-danger">{{ $data->status }}</span>
+                                                                @else
+                                                                    <span class="text-warning">{{ $data->status }}</span>
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $data->note }}</td>
                                                             <td>{{ $data->user }}</td>
 

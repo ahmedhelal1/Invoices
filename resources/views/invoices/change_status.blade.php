@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css') }}">
 @endsection
 @section('title')
-    تعديل فاتورة
+    تعديل حاله الفاتوره
 @stop
 
 @section('page-header')
@@ -21,7 +21,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    تعديل فاتورة</span>
+                    تعديل حاله الفاتوره</span>
             </div>
         </div>
     </div>
@@ -36,10 +36,10 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="###################################3" method="post" enctype="multipart/form-data"
+                    <form action="{{ route('Status_update', $invoice->id) }}" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         @csrf
-                        @method('PUT')
+
                         {{-- 1 --}}
 
                         <div class="row">
@@ -71,7 +71,7 @@
                                 <select name="Section" class="form-control SlectBox" onclick="console.log($(this).val())"
                                     onchange="console.log('change is firing')">
                                     <!--placeholder-->
-                                    <option value="{{ $invoice->section->id }}" selected disabled>
+                                    <option value="{{ $invoice->section->id }}">
                                         {{ $invoice->section->section_name }}
                                     </option>
                                     @foreach ($sections as $section)
@@ -153,15 +153,43 @@
                         <div class="row">
                             <div class="col">
                                 <label for="exampleTextarea">ملاحظات</label>
-                                <textarea class="form-control" value="{{ $invoice->note }}" id="exampleTextarea" name="note" rows="3"></textarea>
+                                <textarea class="form-control" value="{{ $invoice->note }}" id="exampleTextarea" name="note" rows="3">{{ $invoice->note }}</textarea>
                             </div>
                         </div><br>
 
 
                         <br>
 
+
+
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="exampleTextarea">حالة الدفع</label>
+                                <select class="form-control" id="Status" name="Status" required>
+                                    <option selected="true" disabled="disabled">-- حدد حالة الدفع --</option>
+                                    <option value="paid">مدفوعة</option>
+                                    <option value="Partially paid">مدفوعة جزئيا</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label>تاريخ الدفع</label>
+                                <input class="form-control fc-datepicker" name="Payment_Date" placeholder="YYYY-MM-DD"
+                                    type="text" required>
+                            </div>
+
+
+                        </div><br>
+
+
+
+
+
+
+
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                            <button type="submit" class="btn btn-primary"> تحديث حاله الدفع</button>
                         </div>
 
 

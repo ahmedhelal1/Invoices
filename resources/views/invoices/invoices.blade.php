@@ -23,6 +23,16 @@
             }
         </script>
     @endif
+    @if (session()->has('status_update'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "تم تعديل حاله الفاتورة بنجاح",
+                    type: "success"
+                })
+            }
+        </script>
+    @endif
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">

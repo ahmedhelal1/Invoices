@@ -61,7 +61,7 @@ class InvoicesController extends Controller
             'user' => auth()->user()->name,
             'discount' => $request->Discount,
             'total' => $request->Total,
-            'status' => "غير مدفوع",
+            'status' => "Unpaid",
             'value_status' => 2,
 
         ]);
@@ -71,7 +71,7 @@ class InvoicesController extends Controller
             'invoice_number' => $request->invoice_number,
             'product' => $request->product,
             'section' => $request->Section,
-            'status' => "غير مدفوع",
+            'status' => " Unpaid",
             'value_status' => 2,
             'note' => $request->note,
             'user' => auth()->user()->name,
@@ -182,8 +182,54 @@ class InvoicesController extends Controller
     public function Status_show($id)
     {
         $invoice = Invoices::where('id', $id)->first();
+        $sections = sections::all();
 
-        return $invoice;
-        // return view('invoices.change_status', compact('invoice'));
+
+        return view('invoices.change_status', compact('invoice', 'sections'));
+    }
+    public function Status_update(Request $request, $id)
+    {
+        $invoice = invoices::findOrFail($id);
+        if ($request->Status === 'paid') {
+            $invoice->update([
+                'value_status' => 1,
+                'status' => $request->Status,
+                'payment_date' => $request->payment_date,
+            ]);
+            invoices_details::create([
+                'id_invoices' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'section' => $request->Section,
+                'status' => $request->Status,
+                'payment_date' => $request->payment_date,
+                'value_status' => 1,
+                'note' => $request->note,
+                'user' => auth()->user()->name,
+
+
+
+            ]);
+        } else {
+            $invoice->update([
+                'value_status' => 3,
+                'status' => $request->Status,
+                'payment_date' => $request->payment_date,
+            ]);
+            invoices_details::create([
+                'id_invoices' => $request->invoice_id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'section' => $request->Section,
+                'status' => $request->Status,
+                'payment_date' => $request->payment_date,
+                'value_status' => 3,
+                'note' => $request->note,
+                'user' => auth()->user()->name,
+
+            ]);
+        }
+        session()->flash('status_update');
+        return redirect('invoices');
     }
 }

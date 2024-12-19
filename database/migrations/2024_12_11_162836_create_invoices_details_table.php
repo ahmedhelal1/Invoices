@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('section');
             $table->foreign('section')->references('id')->on('sections')->onDelete('cascade');
             $table->string('status', 50);
+            $table->date('payment_date')->nullable();
             $table->integer('value_status');
             $table->text('note')->nullable();
             $table->string('user', 300);
