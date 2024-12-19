@@ -122,8 +122,18 @@
                                                             class="dropdown-header tx-uppercase tx-11 tx-bold tx-inverse tx-spacing-1">
                                                             Dropdown header</h6>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('invoices.edit', $data->id) }}">تعديل
+                                                            href="{{ route('invoices.edit', $data->id) }}">تعديل الفاتوره
                                                         </a>
+
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('invoice.Status_show', $data->id) }}"><i
+                                                                class=" text-success fas
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fa-money-bill"></i>&nbsp;&nbsp;تغير
+                                                            حالة
+                                                            الدفع</a>
+
+
+
                                                         <a class="dropdown-item" href="#"
                                                             data-invoice_id="{{ $data->id }}" data-toggle="modal"
                                                             data-target="#delete_invoice"><i

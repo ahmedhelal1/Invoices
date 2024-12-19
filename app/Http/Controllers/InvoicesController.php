@@ -179,4 +179,11 @@ class InvoicesController extends Controller
         $products = DB::table('products')->where('section_id', $id)->pluck('product_name', 'id');
         return json_encode($products);
     }
+    public function Status_show($id)
+    {
+        $invoice = Invoices::where('id', $id)->first();
+
+        return $invoice;
+        // return view('invoices.change_status', compact('invoice'));
+    }
 }
