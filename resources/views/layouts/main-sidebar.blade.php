@@ -65,6 +65,8 @@
                     </li>
                     <li><a class="slide-item" href="{{ route('partiallyPaid') }}">الفواتير المدفوعه جزئيا</a>
                     </li>
+                    <li><a class="slide-item" href="{{ route('archive.index') }}">ارشيف الفواتير </a>
+                    </li>
 
                 </ul>
             </li>

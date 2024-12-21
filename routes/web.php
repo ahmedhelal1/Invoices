@@ -8,6 +8,7 @@
     use App\Http\Controllers\SectionsController;
     use App\Http\Controllers\ProductsController;
     use App\Http\Controllers\InvoicesDetailsController;
+    use App\Http\Controllers\archiveInvoicesController;
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -28,6 +29,8 @@
     Route::resource('invoices', InvoicesController::class);
     Route::resource('sections', SectionsController::class);
     Route::resource('products', ProductsController::class);
+    Route::resource('archive', archiveInvoicesController::class);
+
     Route::get('/section/{id}', [InvoicesController::class, 'getproducts']);
     Route::get('/invoicesDetails/{id}', [InvoicesDetailsController::class, 'edit'])->name('invoicesDetails');
     Route::get('/View_file/{invoices_name}/{file_name}', [InvoicesDetailsController::class, 'openfile'])->name('View_file');
