@@ -232,4 +232,21 @@ class InvoicesController extends Controller
         session()->flash('status_update');
         return redirect('invoices');
     }
+    public function paid()
+    {
+        $invoices = Invoices::where('value_status', 1)->get();
+        return view('invoices.paid', compact('invoices'));
+    }
+    public function unpaid()
+    {
+
+        $invoices = Invoices::where('value_status', 2)->get();
+        return view('invoices.unpaid', compact('invoices'));
+    }
+    public function partiallyPaid()
+    {
+
+        $invoices = Invoices::where('value_status', 3)->get();
+        return view('invoices.partially_paid', compact('invoices'));
+    }
 }

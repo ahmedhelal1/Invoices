@@ -22,7 +22,9 @@
     Route::get('/', function () {
         return view('auth.login');
     });
-
+    Route::get('/invoices/paid', [InvoicesController::class, 'paid'])->name('paid');
+    Route::get('/invoices/unpaid', [InvoicesController::class, 'unpaid'])->name('unpaid');
+    Route::get('/invoices/partiallyPaid', [InvoicesController::class, 'partiallyPaid'])->name('partiallyPaid');
     Route::resource('invoices', InvoicesController::class);
     Route::resource('sections', SectionsController::class);
     Route::resource('products', ProductsController::class);
@@ -34,6 +36,7 @@
     Route::POST('/invoice_attachments', [InvoicesAttachmentsController::class, 'store'])->name('invoice_attachments');
     Route::get('/invoices/{id}/status', [InvoicesController::class, 'Status_show'])->name('invoice.Status_show');
     Route::post('/invoices/{id}/update_status', [InvoicesController::class, 'Status_update'])->name('Status_update');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
