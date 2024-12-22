@@ -254,4 +254,9 @@ class InvoicesController extends Controller
         $invoices = Invoices::where('value_status', 3)->get();
         return view('invoices.partially_paid', compact('invoices'));
     }
+    public function print_invoice($id)
+    {
+        $invoice = Invoices::where('id', $id)->first();
+        return view('invoices.print_invoice', compact('invoice'));
+    }
 }

@@ -168,6 +168,11 @@
                                                             الي
                                                             الارشيف</a>
 
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('print_invoice', $data->id) }}"><i
+                                                                class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
+                                                            الفاتورة
+                                                        </a>
                                                     </div>
 
                                             </td>
