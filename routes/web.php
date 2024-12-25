@@ -9,6 +9,10 @@
     use App\Http\Controllers\ProductsController;
     use App\Http\Controllers\InvoicesDetailsController;
     use App\Http\Controllers\archiveInvoicesController;
+    use App\Mail\CreateInvoice;
+    use Illuminate\Support\Facades\Mail;
+
+
     /*
     |--------------------------------------------------------------------------
     | Web Routes
@@ -51,7 +55,10 @@
         Route::delete('/profile', [AdminController::class, 'destroy'])->name('profile.destroy');
     });
 
-
+    Route::get('/send', function () {
+        Mail::to('ahmedmohamedhelal10@gmail.com')->send(new CreateInvoice());
+        return response('success');
+    });
 
     require __DIR__ . '/auth.php';
     Route::get('/{page}', [AdminController::class, 'index']);
