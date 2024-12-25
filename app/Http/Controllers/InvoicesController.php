@@ -10,6 +10,8 @@ use App\Models\sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\CreateInvoice;
+use Illuminate\Support\Facades\Mail;
 
 
 class InvoicesController extends Controller
@@ -66,6 +68,7 @@ class InvoicesController extends Controller
 
         ]);
         $invoice_id = invoices::latest()->first()->id;
+
         invoices_details::create([
             'id_invoices' => $invoice_id,
             'invoice_number' => $request->invoice_number,
@@ -84,7 +87,6 @@ class InvoicesController extends Controller
         //     ['file_name.mimes' => ' pdf,jpg,png,jpeg صيغه المرفق يجب ان تكون ']
         // );
         if ($request->hasFile('pic')) {
-            $invoice_id = invoices::latest()->first()->id;
             $image = $request->file('pic');
             // $imagefile = $image->getClientOriginalExtension();
             $image_name = $request->pic->getClientOriginalName();
@@ -100,8 +102,10 @@ class InvoicesController extends Controller
 
             $request->pic->move(public_path('attachment/' . $invoice_number), $image_name);
             session()->flash('add', "لقد تم اضافه فاتوره بنجاح ");
-            return redirect()->back();
         }
+
+        Mail::to(auth()->user()->email)->send(new CreateInvoice($invoice_id));
+        return redirect()->back();
     }
 
     /**

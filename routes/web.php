@@ -55,10 +55,7 @@
         Route::delete('/profile', [AdminController::class, 'destroy'])->name('profile.destroy');
     });
 
-    Route::get('/send', function () {
-        Mail::to('ahmedmohamedhelal10@gmail.com')->send(new CreateInvoice());
-        return response('success');
-    });
+
 
     require __DIR__ . '/auth.php';
     Route::get('/{page}', [AdminController::class, 'index']);

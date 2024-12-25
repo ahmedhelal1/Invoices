@@ -1,14 +1,14 @@
-<x-mail::message>
-    #Hello!
-    تم اضافه فاتوره جديده
+@component('mail::message')
+    # مرحباً!
 
-    <x-mail::button :url="''">
-        عرض الفاتوره
-    </x-mail::button>
-    شكرا لاستخدامك برنامج الفواتير
+    تم إضافة فاتورة جديدة بنجاح.
 
+    شكراً لاستخدامك برنامج الفواتير.
 
+    @component('mail::button', ['url' => route('invoicesDetails', ['id' => $invoice_id])])
+        عرض الفاتورة
+    @endcomponent
 
-    Thanks,<br>
+    شكراً لك على التعامل معنا،
     {{ config('app.name') }}
-</x-mail::message>
+@endcomponent

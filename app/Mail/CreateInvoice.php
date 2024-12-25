@@ -18,9 +18,10 @@ class CreateInvoice extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $invoice_id;
+    public function __construct($invoice_id)
     {
-        //
+        $this->invoice_id = $invoice_id;
     }
 
     /**
@@ -58,6 +59,8 @@ class CreateInvoice extends Mailable
     }
     public function build()
     {
-        return $this->markdown('mails.create_invoice');
+        return $this->markdown('mails.create_invoice', ['id_invoice' => $this->invoice_id]);
+
+        return $this->invoice_id;
     }
 }
