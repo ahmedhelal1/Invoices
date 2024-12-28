@@ -44,6 +44,8 @@
     Route::get('/invoices/{id}/status', [InvoicesController::class, 'Status_show'])->name('invoice.Status_show');
     Route::post('/invoices/{id}/update_status', [InvoicesController::class, 'Status_update'])->name('Status_update');
     Route::get('/print_invoice/{id}', [InvoicesController::class, 'print_invoice'])->name('print_invoice');
+    Route::get('invoice/export/', [InvoicesController::class, 'export'])->name('export');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
