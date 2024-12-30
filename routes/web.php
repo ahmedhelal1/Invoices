@@ -9,8 +9,13 @@
     use App\Http\Controllers\ProductsController;
     use App\Http\Controllers\InvoicesDetailsController;
     use App\Http\Controllers\archiveInvoicesController;
+    use App\Http\Controllers\UserController;
+    use App\Http\Controllers\RoleController;
+
+
     use App\Mail\CreateInvoice;
     use Illuminate\Support\Facades\Mail;
+
 
 
     /*
@@ -57,6 +62,10 @@
         Route::delete('/profile', [AdminController::class, 'destroy'])->name('profile.destroy');
     });
 
+    Route::group(['middleware' => ['auth']], function () {
+        Route::resource('roles', RoleController::class);
+        Route::resource('users', UserController::class);
+    });
 
 
     require __DIR__ . '/auth.php';
