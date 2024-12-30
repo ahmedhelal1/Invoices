@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'roles_name',
+        'Status'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -37,5 +39,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'roles_name' => 'array',
+
     ];
 }
