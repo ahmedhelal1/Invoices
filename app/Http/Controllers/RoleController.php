@@ -42,6 +42,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+
         $permission = Permission::get();
         return view('roles.create', compact('permission'));
     }
@@ -58,7 +59,11 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role->permissions()->sync($request->input('permission'));
+
+
+
+
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');
     }
@@ -107,7 +112,7 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
-        $role->syncPermissions($request->input('permission'));
+        $role->permissions()->sync($request->input('permission'));
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully');
     }

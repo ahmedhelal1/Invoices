@@ -28,13 +28,13 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
-    @if(session()->has('add'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{ session()->get('add') }}</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    @if (session()->has('add'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('add') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
 
     <!-- row -->
@@ -46,7 +46,7 @@
                     <form action="{{ route('invoices.store') }}" method="post" enctype="multipart/form-data"
                         autocomplete="off">
                         {{ csrf_field() }}
-                        {{-- 1 --}}
+
 
                         <div class="row">
                             <div class="col">
@@ -155,8 +155,8 @@
                         <h5 class="card-title">المرفقات</h5>
 
                         <div class="col-sm-12 col-md-12">
-                            <input type="file" name="pic" class="dropify" accept=".pdf,.jpg, .png, image/jpeg, image/png"
-                                data-height="70" />
+                            <input type="file" name="pic" class="dropify"
+                                accept=".pdf,.jpg, .png, image/jpeg, image/png" data-height="70" />
                         </div><br>
 
                         <div class="d-flex justify-content-center">
@@ -208,18 +208,17 @@
         var date = $('.fc-datepicker').datepicker({
             dateFormat: 'yy-mm-dd'
         }).val();
-
     </script>
 
-    
-<script>
+
+    <script>
         $(document).ready(function() {
             $('select[name="Section"]').on('change', function() {
                 var SectionId = $(this).val();
                 if (SectionId) {
                     $.ajax({
                         url: "{{ URL::to('section') }}/" + SectionId,
-                        type: "GET",    
+                        type: "GET",
                         dataType: "json",
                         success: function(data) {
                             $('select[name="product"]').empty();
@@ -236,31 +235,30 @@
             });
 
         });
-
     </script>
-<script>
-    function myFunction(){
-        var amount_Commission =parseFloat(document.getElementById('Amount_Commission').value);
-        var discount = parseFloat(document.getElementById('Discount').value);
-        var Rate_VAT = parseFloat (document.getElementById('Rate_VAT').value);
+    <script>
+        function myFunction() {
+            var amount_Commission = parseFloat(document.getElementById('Amount_Commission').value);
+            var discount = parseFloat(document.getElementById('Discount').value);
+            var Rate_VAT = parseFloat(document.getElementById('Rate_VAT').value);
 
-        var total_after_discount = amount_Commission - discount ;
-     
+            var total_after_discount = amount_Commission - discount;
 
-        if (typeof amount_Commission === 'undefined' || !amount_Commission){
-           alert('يرجي ادخال مبلغ العمولة ');
-        }else{ 
 
-         var value_tax = total_after_discount * (Rate_VAT /100) ;
-         var total =parseFloat( total_after_discount + value_tax) ;
+            if (typeof amount_Commission === 'undefined' || !amount_Commission) {
+                alert('يرجي ادخال مبلغ العمولة ');
+            } else {
 
-         sumq= parseFloat(value_tax).toFixed(2);
-         sumt= parseFloat(total).toFixed(2);
-         document.getElementById('Value_VAT').value = sumq;
-         document.getElementById('Total').value =sumt;
+                var value_tax = total_after_discount * (Rate_VAT / 100);
+                var total = parseFloat(total_after_discount + value_tax);
+
+                sumq = parseFloat(value_tax).toFixed(2);
+                sumt = parseFloat(total).toFixed(2);
+                document.getElementById('Value_VAT').value = sumq;
+                document.getElementById('Total').value = sumt;
+            }
         }
-    }
-</script>
-   
+    </script>
+
 
 @endsection

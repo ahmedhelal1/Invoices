@@ -214,26 +214,27 @@
                 </div>
                 <div class="tab-pane" id="tab3">
                     <!-- row opened -->
+                    @can('اضافة مرفق')
+                        <div class="card-body">
+                            <h5 class="card-title">اضافة مرفقات</h5>
+                            <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
 
-                    <div class="card-body">
-                        <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
-                        <h5 class="card-title">اضافة مرفقات</h5>
-                        <form method="post" action="{{ route('invoice_attachments') }}" enctype="multipart/form-data">
-                            @csrf
+                            <form method="post" action="{{ route('invoice_attachments') }}" enctype="multipart/form-data">
+                                @csrf
 
-                            <div class="custom-file">
-                                <label class="custom-file-label" for="file_name">حدد المرفق</label>
-                                <input type="file" class="custom-file-input" id="file_name" name="file_name"
-                                    required>
-                                <input type="hidden" id="invoice_number" name="invoice_number"
-                                    value="{{ $invoice->invoices_number }}">
-                                <input type="hidden" id="invoice_id" name="invoice_id" value="{{ $invoice->id }}">
+                                <div class="custom-file">
+                                    <label class="custom-file-label" for="file_name">حدد المرفق</label>
+                                    <input type="file" class="custom-file-input" id="file_name" name="file_name"
+                                        required>
+                                    <input type="hidden" id="invoice_number" name="invoice_number"
+                                        value="{{ $invoice->invoices_number }}">
+                                    <input type="hidden" id="invoice_id" name="invoice_id" value="{{ $invoice->id }}">
 
-                            </div><br><br>
-                            <button type="submit" class="btn btn-primary btn-sm " name="submit">تاكيد</button>
-                        </form>
-                    </div>
-
+                                </div><br><br>
+                                <button type="submit" class="btn btn-primary btn-sm " name="submit">تاكيد</button>
+                            </form>
+                        </div>
+                    @endcan
 
 
 
@@ -296,14 +297,14 @@
                                                                     role="button"><i class="fas fa-download"></i>&nbsp;
                                                                     تحميل</a>
 
-
-                                                                <a class="btn btn-outline-danger btn-sm"
-                                                                    data-toggle="modal"
-                                                                    data-file_name="{{ $data->file_name }}"
-                                                                    data-invoices_number="{{ $data->invoices_number }}"
-                                                                    data-id_file="{{ $data->id }}"
-                                                                    data-target="#delete_file">حذف</a>
-
+                                                                @can('حذف المرفق')
+                                                                    <a class="btn btn-outline-danger btn-sm"
+                                                                        data-toggle="modal"
+                                                                        data-file_name="{{ $data->file_name }}"
+                                                                        data-invoices_number="{{ $data->invoices_number }}"
+                                                                        data-id_file="{{ $data->id }}"
+                                                                        data-target="#delete_file">حذف</a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
