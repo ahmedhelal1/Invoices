@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Storage;
 
 class InvoicesAttachmentsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:اضافة مرفق', ['only' => ['create', 'store']]);
+        $this->middleware('permission:حذف المرفق', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

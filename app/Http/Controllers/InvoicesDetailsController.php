@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class InvoicesDetailsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:قائمة الفواتير', ['only' => ['openfile', 'download']]);
+        $this->middleware('permission:اضافة مستخدم', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit']]);
+        $this->middleware('permission:حذف المرفق', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

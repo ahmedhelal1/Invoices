@@ -17,6 +17,17 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class InvoicesController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:قائمة الفواتير', ['only' => ['index', 'show']]);
+        $this->middleware('permission:اضافة فاتورة', ['only' => ['create', 'store']]);
+        $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:حذف الفاتورة', 'permission:ارشفة الفاتورة'], ['only' => ['destroy']]);
+        $this->middleware('permission:طباعةالفاتورة', ['only' => ['print_invoice']]);
+        $this->middleware('permission:تصدير EXCEL', ['only' => ['export']]);
+        $this->middleware('permission:تغير حالة الدفع', ['only' => ['Status_show', 'Status_update', 'partiallyPaid', 'unpaid', 'paid']]);
+        $this->middleware('permission:المنتجات', ['only' => ['getproducts']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -137,7 +148,6 @@ class InvoicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
         $invoices = Invoices::findOrFail($id);
         $invoices->update([
             'invoices_number' => $request->invoice_number,

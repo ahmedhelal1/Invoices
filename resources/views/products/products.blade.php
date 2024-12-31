@@ -70,7 +70,7 @@
                     <div class="col-sm-6 col-md-4 col-xl-3">
                         @can('اضافة منتج')
                             <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                                data-toggle="modal" href="#modaldemo8">اضافه قسم</a>
+                                data-toggle="modal" href="#modaldemo8">اضافه منتج</a>
                         @endcan
                     </div>
 

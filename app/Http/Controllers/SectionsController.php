@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class SectionsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:الاقسام', ['only' => ['index']]);
+        $this->middleware('permission:اضافة قسم', ['only' => ['store']]);
+        $this->middleware('permission:تعديل قسم', ['only' => ['update']]);
+        $this->middleware('permission:حذف قسم', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

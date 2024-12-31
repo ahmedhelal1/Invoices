@@ -8,6 +8,7 @@ use App\Models\invoices;
 
 class ArchiveInvoicesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *

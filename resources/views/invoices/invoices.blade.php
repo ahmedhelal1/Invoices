@@ -71,7 +71,7 @@
                         <div class="col-sm-6 col-md-4 col-xl-3">
                             @can('اضافة فاتورة')
                                 <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                                    href="{{ route('invoices.create') }}">اضافه قسم</a>
+                                    href="{{ route('invoices.create') }}">اضافه فاتوره</a>
                             @endcan
                             @can('تصدير EXCEL')
                                 <a class="modal-effect btn btn-outline-primary btn-block" href="{{ route('export') }}"><i
