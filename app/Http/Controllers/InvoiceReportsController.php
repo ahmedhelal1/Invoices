@@ -35,7 +35,9 @@ class InvoiceReportsController extends Controller
                 }
             }
         } else {
-            echo "this else";
+
+            $details = invoices::select('*')->where('invoices_number', '=', $request->invoice_number)->get();
+            return view('reports.invoices_report', compact('type', 'details'));
         }
         return $request;
     }
