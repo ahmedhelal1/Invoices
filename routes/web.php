@@ -11,9 +11,11 @@
     use App\Http\Controllers\archiveInvoicesController;
     use App\Http\Controllers\UserController;
     use App\Http\Controllers\RoleController;
+    use App\Http\Controllers\InvoiceReportsController;
 
 
     use App\Mail\CreateInvoice;
+    use Faker\Guesser\Name;
     use Illuminate\Support\Facades\Mail;
 
 
@@ -50,6 +52,8 @@
     Route::post('/invoices/{id}/update_status', [InvoicesController::class, 'Status_update'])->name('Status_update');
     Route::get('/print_invoice/{id}', [InvoicesController::class, 'print_invoice'])->name('print_invoice');
     Route::get('invoice/export/', [InvoicesController::class, 'export'])->name('export');
+    Route::get('invoice/report/', [InvoiceReportsController::class, 'index'])->name('report');
+    Route::POST('search/invoices', [InvoiceReportsController::class, 'Search_invoices'])->name('Search_invoices');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
