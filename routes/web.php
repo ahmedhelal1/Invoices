@@ -12,6 +12,7 @@
     use App\Http\Controllers\UserController;
     use App\Http\Controllers\RoleController;
     use App\Http\Controllers\InvoiceReportsController;
+    use App\Http\Controllers\CustomerReportController;
 
 
     use App\Mail\CreateInvoice;
@@ -54,6 +55,10 @@
     Route::get('invoice/export/', [InvoicesController::class, 'export'])->name('export');
     Route::get('invoice/report/', [InvoiceReportsController::class, 'index'])->name('report');
     Route::POST('search/invoices', [InvoiceReportsController::class, 'Search_invoices'])->name('Search_invoices');
+    Route::get('customer_report/', [CustomerReportController::class, 'index'])->name('customer_report');
+    Route::POST('search/customer_report/', [CustomerReportController::class, 'search'])->name('search_customer_report');
+
+
 
     Route::get('/dashboard', function () {
         return view('dashboard');
