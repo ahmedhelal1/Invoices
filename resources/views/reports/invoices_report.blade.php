@@ -180,10 +180,16 @@
                                         <td>{{ $invoice->note }}</td>
                                     </tr>
                                 @endforeach
+
+
+
                             </tbody>
                         </table>
 
                     @endif
+
+
+
                 </div>
             </div>
         </div>

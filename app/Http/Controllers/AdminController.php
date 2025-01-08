@@ -19,6 +19,7 @@ class AdminController extends Controller
             // return view('404');
         }
 
+
         //   return view($id);
     }
 

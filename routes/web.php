@@ -13,6 +13,7 @@
     use App\Http\Controllers\RoleController;
     use App\Http\Controllers\InvoiceReportsController;
     use App\Http\Controllers\CustomerReportController;
+    use App\Http\Controllers\HomeController;
 
 
     use App\Mail\CreateInvoice;
@@ -60,10 +61,9 @@
 
 
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified', 'check_user'])->name('dashboard');
-
+    Route::get('/dashboard', [HomeController::class, 'index'])
+        ->middleware(['auth', 'verified', 'check_user'])
+        ->name('dashboard');
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [AdminController::class, 'edit'])->name('profile.edit');
