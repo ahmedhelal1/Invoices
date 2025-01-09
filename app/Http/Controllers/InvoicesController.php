@@ -7,13 +7,17 @@ use App\Models\invoices;
 use App\Models\invoices_attachments;
 use App\Models\invoices_details;
 use App\Models\sections;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\CreateInvoice;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\InvoicesExport;
+use App\Notifications\AddInvoices;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Notification;
+
 
 class InvoicesController extends Controller
 {
@@ -113,10 +117,15 @@ class InvoicesController extends Controller
 
 
             $request->pic->move(public_path('attachment/' . $invoice_number), $image_name);
-            session()->flash('add', "لقد تم اضافه فاتوره بنجاح ");
         }
 
+        $user = User::where('id', '!=', auth()->user()->id)->get();
+        $user_created = auth()->user()->name;
+        Notification::send($user, new AddInvoices($invoice_id, $user_created));
+        //////////////////////
         Mail::to(auth()->user()->email)->send(new CreateInvoice($invoice_id));
+        session()->flash('add', "لقد تم اضافه فاتوره بنجاح ");
+
         return redirect()->back();
     }
 
@@ -126,9 +135,13 @@ class InvoicesController extends Controller
      * @param  \App\Models\invoices  $invoices
      * @return \Illuminate\Http\Response
      */
-    public function show(invoices $invoices)
+    public function show($id)
     {
-        //
+        $invoices = invoices::findOrFail($id);
+
+        $getId = DB::table('notifications')->where('data->invoice_id', $id)->where('notifiable_id', auth()->user()->id)->pluck('id');
+        DB::table('notifications')->where('id', $getId)->update(['read_at' => now()]);
+        return view('invoices.invoice_notification', compact('invoices'));
     }
 
 
@@ -277,6 +290,14 @@ class InvoicesController extends Controller
     public function export()
     {
         return Excel::download(new InvoicesExport, 'invoices.xlsx');
+        return redirect()->back();
+    }
+    public function markAsRead()
+    {
+        $user = User::find(Auth()->user()->id);
+        foreach ($user->unreadnotifications as $notification) {
+            $notification->markAsRead();
+        }
         return redirect()->back();
     }
 }

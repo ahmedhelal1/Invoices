@@ -51,7 +51,20 @@ class HomeController extends Controller
             ->options([]);
 
 
+        $chartjs_2 = app()->chartjs
+            ->name('pieChartTest')
+            ->type('pie')
+            ->size(['width' => 400, 'height' => 300])
+            ->labels(['الفواتير الغير المدفوعة', 'الفواتير المدفوعة', 'الفواتير المدفوعة جزئيا'])
+            ->datasets([
+                [
+                    'backgroundColor' => ['#ec5858', '#81b214', '#ff9642'],
+                    'data' => [$unpaid_percent, $paid_percent, $Partially_paid_percent]
+                ]
+            ])
+            ->options([]);
 
-        return view('dashboard', compact('chartjs'));
+
+        return view('dashboard', compact('chartjs', 'chartjs_2'));
     }
 }

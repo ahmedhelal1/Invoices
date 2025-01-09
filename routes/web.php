@@ -58,8 +58,7 @@
     Route::POST('search/invoices', [InvoiceReportsController::class, 'Search_invoices'])->name('Search_invoices');
     Route::get('customer_report/', [CustomerReportController::class, 'index'])->name('customer_report');
     Route::POST('search/customer_report/', [CustomerReportController::class, 'search'])->name('search_customer_report');
-
-
+    Route::get('notifications/markAsRead/', [InvoicesController::class, 'markAsRead'])->name('markAsRead');
 
     Route::get('/dashboard', [HomeController::class, 'index'])
         ->middleware(['auth', 'verified', 'check_user'])
