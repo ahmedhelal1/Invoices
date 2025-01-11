@@ -19,10 +19,22 @@ class HomeController extends Controller
         $paid = invoices::where('status', 'paid')->count();
         $Partially_paid = invoices::where('status', 'Partially paid')->count();
         $unpaid = invoices::where('status', 'unpaid')->count();
+        if ($paid) {
+            $paid_percent = ($paid * 100) / $total_invoices;
+        } else {
+            $paid_percent = 0;
+        }
+        if ($Partially_paid) {
+            $Partially_paid_percent = ($Partially_paid * 100) / $total_invoices;
+        } else {
+            $Partially_paid_percent = 0;
+        }
+        if ($unpaid) {
+            $unpaid_percent = ($unpaid * 100) / $total_invoices;
+        } else {
+            $unpaid_percent = 0;
+        }
 
-        $paid_percent = ($paid * 100) / $total_invoices;
-        $Partially_paid_percent = ($Partially_paid * 100) / $total_invoices;
-        $unpaid_percent = ($unpaid * 100) / $total_invoices;
 
 
         $chartjs = app()->chartjs

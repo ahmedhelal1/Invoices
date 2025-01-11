@@ -55,16 +55,26 @@
                         <div class="d-flex">
                             <div class="">
                                 <h4 class="tx-20 font-weight-bold mb-1 text-white">
-                                    ${{ number_format(App\Models\invoices::where('value_status', 2)->sum('total'), 2) }}
+                                    $ <?php number_format(App\Models\invoices::where('value_status', 2)->sum('total'), 2); ?>
                                 </h4>
                                 <p class="mb-0 tx-12 text-white op-7">
-                                    {{ App\Models\invoices::where('value_status', 2)->count() }}</p>
+                                    <?php App\Models\invoices::where('value_status', 2)->count(); ?></p>
                             </div>
+
                             <span class="float-right my-auto mr-auto">
                                 <i class="fas fa-arrow-circle-down text-white"></i>
                                 <span class="text-white op-7">
-                                    {{ round((App\Models\invoices::where('value_status', 2)->count() * 100) / App\Models\invoices::count(), 2) }}%</span>
+                                    <?php
+                                    $count_all = \App\Models\invoices::count();
+                                    $count_invoices2 = \App\Models\invoices::where('value_status', 2)->count();
+
+                                    $percentage_invoices2 = $count_all > 0 ? ($count_invoices2 / $count_all) * 100 : 0;
+
+                                    echo number_format($percentage_invoices2, 2) . '%';
+                                    ?>
+                                </span>
                             </span>
+
                         </div>
                     </div>
                 </div>
@@ -89,8 +99,11 @@
                             <span class="float-right my-auto mr-auto">
                                 <i class="fas fa-arrow-circle-up text-white"></i>
                                 <span class="text-white op-7">
-                                    {{ round((App\Models\invoices::where('value_status', 1)->count() * 100) / App\Models\invoices::count(), 2) }}%</span>
-                            </span>
+
+                                    {{ App\Models\invoices::count() > 0
+                                        ? round((App\Models\invoices::where('value_status', 1)->count() * 100) / App\Models\invoices::count(), 2) . '%'
+                                        : '0%' }}
+                                </span>
                         </div>
                     </div>
                 </div>
@@ -115,8 +128,10 @@
                             <span class="float-right my-auto mr-auto">
                                 <i class="fas fa-arrow-circle-down text-white"></i>
                                 <span class="text-white op-7">
-                                    {{ round((App\Models\invoices::where('value_status', 3)->count() * 100) / App\Models\invoices::count(), 2) }}%</span>
-                            </span>
+                                    {{ App\Models\invoices::count() > 0
+                                        ? round((App\Models\invoices::where('value_status', 3)->count() * 100) / App\Models\invoices::count(), 2) . '%'
+                                        : '0%' }}
+                                </span>
                         </div>
                     </div>
                 </div>
